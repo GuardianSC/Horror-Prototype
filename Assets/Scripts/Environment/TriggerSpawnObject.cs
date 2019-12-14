@@ -2,17 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TriggerSpawnObject : MonoBehaviour
+namespace HorrorPrototype
 {
-    // Start is called before the first frame update
-    void Start()
+    public class TriggerSpawnObject : MonoBehaviour
     {
-        
-    }
+        [SerializeField] private GameObject spawnObject;
+        [SerializeField] private Vector3 spawnPosition;
+        [SerializeField] private int maxSpawnObjects;
+        private int spawnedObjects;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private void OnTriggerEnter(Collider other)
+        {
+            if (spawnedObjects < maxSpawnObjects)
+            {
+                spawnedObjects = spawnedObjects + 1;
+                Instantiate(spawnObject, spawnPosition, transform.rotation);
+            }                
+            //Debug.Log(spawnedObjects);
+        }
     }
 }
