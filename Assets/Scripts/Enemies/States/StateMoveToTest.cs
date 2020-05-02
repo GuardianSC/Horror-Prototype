@@ -12,8 +12,10 @@ namespace HorrorPrototype
         
         public override void Tick()
         {
-            enemy.nma.SetDestination(destination);
-            destination = new Vector3(0, transform.position.y, 11);
+            destination = new Vector3(0, enemy.transform.position.y, 11);
+            enemy.nma.SetDestination(destination);            
+            //if (enemy.nma.remainingDistance <= enemy.nma.stoppingDistance)
+            //    Debug.Log("Arrived at destination");
         }
     }
 }
