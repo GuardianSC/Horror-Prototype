@@ -1035,7 +1035,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   cc: {fileID: 0}
   moveSpeed: 2
-  jumpForce: 5
+  jumpForce: 3.25
   isGrounded: 0
 --- !u!54 &872911331
 Rigidbody:

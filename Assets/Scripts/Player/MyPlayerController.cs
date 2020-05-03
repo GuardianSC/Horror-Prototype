@@ -39,10 +39,10 @@ namespace HorrorPrototype
             transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, camera.yRotation, transform.localEulerAngles.z); // Rotate player in camera horizontal direction
         }
 
-        void OnCollisionStay()
+        void OnCollisionStay(Collision collision)
         {
-
-            isGrounded = true;
+            if (collision.gameObject.tag == "Landable")
+                isGrounded = true;
         }
 
         private void OnCollisionExit(Collision collision)
