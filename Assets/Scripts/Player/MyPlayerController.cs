@@ -5,8 +5,8 @@ using UnityEngine;
 namespace HorrorPrototype
 {
     [RequireComponent(typeof(Rigidbody))]
-    [RequireComponent(typeof(Rigidbody))] // For initial testing, switch and figure stuff out with mesh collider and sci fi soldier later
-                                          //[RequireComponent(typeof(MeshCollider))]
+    [RequireComponent(typeof(CapsuleCollider))]
+                                          
     public class MyPlayerController : MonoBehaviour
     {
         new PlayerCamera camera;
@@ -14,7 +14,9 @@ namespace HorrorPrototype
         public CapsuleCollider cc;
 
         Vector3 movement;
-        public float moveSpeed;
+        [SerializeField] private float moveSpeed;
+        [SerializeField] private float jumpForce;
+        [SerializeField] private bool isGrounded; // Serialized just to easily see if it's working
 
         // Start is called before the first frame update
         void Start()
@@ -24,7 +26,7 @@ namespace HorrorPrototype
             cc = GetComponent<CapsuleCollider>();
 
         }
-
+        
         // Update is called once per frame
         void Update()
         {
@@ -37,11 +39,39 @@ namespace HorrorPrototype
             transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, camera.yRotation, transform.localEulerAngles.z); // Rotate player in camera horizontal direction
         }
 
+        void OnCollisionStay()
+        {
+
+            isGrounded = true;
+        }
+
+        private void OnCollisionExit(Collision collision)
+        {
+            isGrounded = false;
+        }
+
         // Keeps physics constant no matter the framerate
         void FixedUpdate()
         {
             transform.Translate(movement * moveSpeed * Time.deltaTime, Space.Self);
-            //rb.velocity += movement * moveSpeed * Time.deltaTime;
+
+            //RaycastHit hit;
+            //float rayDistance = 1.5f;
+            //Debug.DrawRay(transform.position, Vector3.down, Color.red);
+
+            //if (Physics.Raycast(transform.position, Vector3.down, out hit, rayDistance))
+            //{
+            //    if (hit.transform.tag == "Landable")
+            //        isGrounded = true;
+            //    else if (hit.transform.tag != "Landable" || hit.transform.tag == null)
+            //        isGrounded = false;
+            //}
+
+            if (isGrounded && Input.GetButton("Jump"))
+            {
+                rb.AddForce(jumpForce * Vector3.up, ForceMode.Impulse);
+            }
+
         }
     }
 }
