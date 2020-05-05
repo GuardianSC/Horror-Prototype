@@ -55,18 +55,6 @@ namespace HorrorPrototype
         {
             transform.Translate(movement * moveSpeed * Time.deltaTime, Space.Self);
 
-            //RaycastHit hit;
-            //float rayDistance = 1.5f;
-            //Debug.DrawRay(transform.position, Vector3.down, Color.red);
-
-            //if (Physics.Raycast(transform.position, Vector3.down, out hit, rayDistance))
-            //{
-            //    if (hit.transform.tag == "Landable")
-            //        isGrounded = true;
-            //    else if (hit.transform.tag != "Landable" || hit.transform.tag == null)
-            //        isGrounded = false;
-            //}
-
             if (isGrounded && Input.GetButton("Jump"))
             {
                 rb.AddForce(jumpForce * Vector3.up, ForceMode.Impulse);
